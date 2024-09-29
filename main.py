@@ -6,7 +6,7 @@ import ollama
 # OpenAI compatibility
 import openai
 
-model_name = "llama3.2:1b"
+model_name = "llama3.1:8b"  # 기본 모델
 
 app = FastAPI()
 
@@ -39,11 +39,11 @@ async def chat(request: Request):
     user_message = data.get("message")
     selected_model = data.get("model", model_name)  # 기본 모델은 llama3.1:8b
 
-    messages = [{'role': 'system', 'content': "파이썬 코드를 작성해줘.라고 질문을 받으면 전문적인 프로그래머로서의 역할을 해줘."},
+    messages = [{'role': 'system', 'content': "You are a Python coding assistant. Your role is to help users by providing clear, concise, and accurate Python code for their programming needs. You should break down complex problems, provide explanations where necessary, and ensure that the code follows best practices. Avoid overly technical jargon unless requested by the user. Your tone should be friendly, professional, and supportive. Provide examples when needed and encourage good coding habits such as adding comments and using meaningful variable names."},
                 {'role': 'user', 'content': user_message}]
     assistant_message = {'role': 'assistant', 'content': ''}
 
-    async for response in await client.chat(model=model_name, messages=messages, stream=True):
+    async for response in await client.chat(model=selected_model, messages=messages, stream=True):
         if response['done']:
             break
         assistant_message['content'] += response['message']['content']
