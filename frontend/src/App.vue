@@ -32,8 +32,8 @@ export default {
   data() {
     return {
       userInput: '',
-      selectedModel: 'llama3.1:8b', // 기본 선택된 모델
-      models: ['llama3.1:8b', 'codellama'] // 선택 가능한 모델 목록
+      selectedModel: 'llama3.2:1b', // 기본 선택된 모델
+      models: ['llama3.2:1b', 'codellama'] // 선택 가능한 모델 목록
     };
   },
   methods: {
